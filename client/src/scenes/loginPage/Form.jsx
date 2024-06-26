@@ -7,7 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import EditOutlined from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -206,13 +206,13 @@ const Form = () => {
                           "&hover": { cursor: "pointer" },
                         }}
                       >
-                        <input {...getInputProps} />
+                        <input {...getInputProps()} />
                         {!values.picture ? (
                           <p>Add Picture Here</p>
                         ) : (
                           <FlexBetween>
                             <Typography> {values.picture.name} </Typography>
-                            <EditOutlinedIcon />
+                            <EditOutlined />
                           </FlexBetween>
                         )}
                       </Box>

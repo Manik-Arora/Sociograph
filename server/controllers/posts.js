@@ -3,6 +3,7 @@ import User from "../models/User.js";
 
 /* CREATE */
 export const createPost = async (req, res) => {
+  console.log("1");
   try {
     const { userId, description, picturePath } = req.body;
     const user = await User.findById(userId);
@@ -18,7 +19,7 @@ export const createPost = async (req, res) => {
       comments: [],
     });
     await newPost.save();
-
+    console.log("2");
     const post = await Post.find();
     res.status(201).json({ post });
   } catch (err) {
