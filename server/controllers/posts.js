@@ -3,7 +3,6 @@ import User from "../models/User.js";
 
 /* CREATE */
 export const createPost = async (req, res) => {
-  console.log("1");
   try {
     const { userId, description, picturePath } = req.body;
     const user = await User.findById(userId);
@@ -19,9 +18,8 @@ export const createPost = async (req, res) => {
       comments: [],
     });
     await newPost.save();
-    console.log("2");
     const post = await Post.find();
-    res.status(201).json({ post });
+    res.status(201).json(post);
   } catch (err) {
     res.status(409).json({ error: err.message });
   }
@@ -31,7 +29,8 @@ export const createPost = async (req, res) => {
 export const getFeedPosts = async (req, res) => {
   try {
     const post = await Post.find();
-    res.status(200).json({ post });
+    console.log("In here");
+    res.status(200).json(post);
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
@@ -41,7 +40,7 @@ export const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params;
     const post = await Post.findById(userId);
-    res.status(200).json({ post });
+    res.status(200).json(post);
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
@@ -69,7 +68,7 @@ export const likePost = async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({ updatedPost });
+    res.status(200).json(updatedPost);
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
