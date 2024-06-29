@@ -1,10 +1,10 @@
 import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
-import { useNavigate } from "react-router-dom";
 
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const dispatch = useDispatch();
@@ -35,6 +35,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     const data = await response.json();
     dispatch(setFriends({ friends: data }));
   };
+
   return (
     <FlexBetween>
       <FlexBetween gap="1rem">
@@ -49,7 +50,12 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
             color={main}
             variant="h5"
             fontWeight="500"
-            sx={{ "&:hover": { color: primaryLight, cursor: "pointer" } }}
+            sx={{
+              "&:hover": {
+                color: palette.primary.light,
+                cursor: "pointer",
+              },
+            }}
           >
             {name}
           </Typography>
