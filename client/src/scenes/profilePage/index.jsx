@@ -21,12 +21,11 @@ const ProfilePage = () => {
     });
     const data = await response.json();
     setUser(data);
-    console.log(user);
   };
 
   useEffect(() => {
-    getUser(); // eslint-disable-line react-hooks/exhaustive-deps
-  }, []);
+    getUser();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) return null;
 
