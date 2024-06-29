@@ -7,7 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import EditOutlined from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -51,12 +51,12 @@ const Form = () => {
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobileScreens = useMediaQuery("(min-width: 600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
 
   const register = async (values, onSubmitProps) => {
-    // this allows us to send form info with image
+    // this allows us to send form data with image
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
@@ -86,7 +86,8 @@ const Form = () => {
     });
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
-    if (loggedIn) {
+
+    if (loggedInResponse.ok) {
       dispatch(
         setLogin({
           user: loggedIn.user,
@@ -124,7 +125,9 @@ const Form = () => {
             gap="30px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{
-              "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+              "& > div": {
+                gridColumn: isNonMobileScreens ? undefined : "span 4",
+              },
             }}
           >
             {isRegister && (
@@ -199,7 +202,7 @@ const Form = () => {
                         ) : (
                           <FlexBetween>
                             <Typography>{values.picture.name}</Typography>
-                            <EditOutlinedIcon />
+                            <EditOutlined />
                           </FlexBetween>
                         )}
                       </Box>
@@ -217,6 +220,7 @@ const Form = () => {
               name="email"
               error={Boolean(touched.email) && Boolean(errors.email)}
               helperText={touched.email && errors.email}
+              InputLabelProps={{ shrink: true }}
               sx={{ gridColumn: "span 4" }}
             />
             <TextField
@@ -228,6 +232,7 @@ const Form = () => {
               name="password"
               error={Boolean(touched.password) && Boolean(errors.password)}
               helperText={touched.password && errors.password}
+              InputLabelProps={{ shrink: true }}
               sx={{ gridColumn: "span 4" }}
             />
           </Box>
