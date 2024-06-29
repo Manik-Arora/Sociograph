@@ -42,8 +42,7 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  const fullName = `Manik Arora`;
-  // const fullName = `${user.firstName} ${user.lastName}`;
+  const fullName = `${user.firstName} ${user.lastName}`;
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -81,10 +80,10 @@ const Navbar = () => {
       {isNonMobileScreens ? (
         <FlexBetween gap="2rem">
           <IconButton onClick={() => dispatch(setMode())}>
-            {theme.palette.mode == "dark" ? (
+            {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
             ) : (
-              <LightMode sx={{ color: dark, fontSize: "25px" }}></LightMode>
+              <LightMode sx={{ color: dark, fontSize: "25px" }} />
             )}
           </IconButton>
           <Message sx={{ fontSize: "25px" }} />

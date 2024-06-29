@@ -7,7 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import EditOutlined from "@mui/icons-material/EditOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -51,12 +51,12 @@ const Form = () => {
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isNonMobileScreens = useMediaQuery("(min-width: 600px)");
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
 
   const register = async (values, onSubmitProps) => {
-    // this allows us to send form data with image
+    // this allows us to send form info with image
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
@@ -86,8 +86,7 @@ const Form = () => {
     });
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
-
-    if (loggedInResponse.ok) {
+    if (loggedIn) {
       dispatch(
         setLogin({
           user: loggedIn.user,
@@ -125,9 +124,7 @@ const Form = () => {
             gap="30px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{
-              "& > div": {
-                gridColumn: isNonMobileScreens ? undefined : "span 4",
-              },
+              "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
             }}
           >
             {isRegister && (
@@ -142,9 +139,7 @@ const Form = () => {
                     Boolean(touched.firstName) && Boolean(errors.firstName)
                   }
                   helperText={touched.firstName && errors.firstName}
-                  sx={{
-                    gridColumn: "span 2",
-                  }}
+                  sx={{ gridColumn: "span 2" }}
                 />
                 <TextField
                   label="Last Name"
@@ -154,9 +149,7 @@ const Form = () => {
                   name="lastName"
                   error={Boolean(touched.lastName) && Boolean(errors.lastName)}
                   helperText={touched.lastName && errors.lastName}
-                  sx={{
-                    gridColumn: "span 2",
-                  }}
+                  sx={{ gridColumn: "span 2" }}
                 />
                 <TextField
                   label="Location"
@@ -166,9 +159,7 @@ const Form = () => {
                   name="location"
                   error={Boolean(touched.location) && Boolean(errors.location)}
                   helperText={touched.location && errors.location}
-                  sx={{
-                    gridColumn: "span 4",
-                  }}
+                  sx={{ gridColumn: "span 4" }}
                 />
                 <TextField
                   label="Occupation"
@@ -180,9 +171,7 @@ const Form = () => {
                     Boolean(touched.occupation) && Boolean(errors.occupation)
                   }
                   helperText={touched.occupation && errors.occupation}
-                  sx={{
-                    gridColumn: "span 4",
-                  }}
+                  sx={{ gridColumn: "span 4" }}
                 />
                 <Box
                   gridColumn="span 4"
@@ -202,17 +191,15 @@ const Form = () => {
                         {...getRootProps()}
                         border={`2px dashed ${palette.primary.main}`}
                         p="1rem"
-                        sx={{
-                          "&hover": { cursor: "pointer" },
-                        }}
+                        sx={{ "&:hover": { cursor: "pointer" } }}
                       >
                         <input {...getInputProps()} />
                         {!values.picture ? (
                           <p>Add Picture Here</p>
                         ) : (
                           <FlexBetween>
-                            <Typography> {values.picture.name} </Typography>
-                            <EditOutlined />
+                            <Typography>{values.picture.name}</Typography>
+                            <EditOutlinedIcon />
                           </FlexBetween>
                         )}
                       </Box>
@@ -230,10 +217,7 @@ const Form = () => {
               name="email"
               error={Boolean(touched.email) && Boolean(errors.email)}
               helperText={touched.email && errors.email}
-              InputLabelProps={{ shrink: true }}
-              sx={{
-                gridColumn: "span 4",
-              }}
+              sx={{ gridColumn: "span 4" }}
             />
             <TextField
               label="Password"
@@ -244,10 +228,7 @@ const Form = () => {
               name="password"
               error={Boolean(touched.password) && Boolean(errors.password)}
               helperText={touched.password && errors.password}
-              InputLabelProps={{ shrink: true }}
-              sx={{
-                gridColumn: "span 4",
-              }}
+              sx={{ gridColumn: "span 4" }}
             />
           </Box>
 
@@ -276,7 +257,7 @@ const Form = () => {
                 color: palette.primary.main,
                 "&:hover": {
                   cursor: "pointer",
-                  color: palette.primary.dark,
+                  color: palette.primary.light,
                 },
               }}
             >
